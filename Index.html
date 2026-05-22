@@ -1,0 +1,140 @@
+# Boletimescolar-
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boletim Escolar</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #e2e8f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .caixa-boletim {
+            background-color: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 380px;
+        }
+        h1 {
+            margin-top: 0;
+            color: #1e293b;
+            font-size: 26px;
+        }
+        p {
+            color: #64748b;
+            margin-bottom: 25px;
+        }
+        input {
+            width: 80%;
+            padding: 12px;
+            font-size: 18px;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 20px;
+            outline: none;
+        }
+        input:focus {
+            border-color: #3b82f6;
+        }
+        button {
+            width: 90%;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background-color: #3b82f6;
+            color: white;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background-color: #2563eb;
+        }
+        .area-resultado {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px dashed #cbd5e1;
+        }
+        #resultado {
+            font-size: 28px;
+            font-weight: bold;
+            color: #94a3b8;
+            transition: color 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <div class="caixa-boletim">
+        <h1>Análise de Boletim 📝</h1>
+        <p>Insira a nota final do aluno para verificar a situação.</p>
+
+        <!-- Caixa de texto para a nota -->
+        <input type="number" id="notaInput" placeholder="Ex: 8.5" step="0.1">
+
+        <!-- Botão de ação -->
+        <button id="btnAnalisar">Verificar Situação</button>
+
+        <!-- Onde o resultado aparece -->
+        <div class="area-resultado">
+            <div id="resultado">Aguardando nota...</div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT COMPLETO -->
+    <script>
+        // 1. Capturando os elementos do HTML
+        const inputNota = document.getElementById('notaInput');
+        const botao = document.getElementById('btnAnalisar');
+        const areaResultado = document.getElementById('resultado');
+
+        // 2. Função principal de análise
+        function verificarSituacao() {
+            // Pegando o valor e convertendo para número
+            let nota = parseFloat(inputNota.value);
+
+            // Verificando se é um número válido
+            if (isNaN(nota)) {
+                areaResultado.textContent = "Digite uma nota válida!";
+                areaResultado.style.color = "gray";
+                return;
+            }
+
+            // 3. Regras de Negócio
+            if (nota < 0 || nota > 10) {
+                // Nota Inválida
+                areaResultado.textContent = "Nota inválida! Digite um valor entre 0 e 10.";
+                areaResultado.style.color = "gray";
+
+            } else if (nota >= 7) {
+                // Aprovado
+                areaResultado.textContent = "Aprovado!";
+                areaResultado.style.color = "green";
+
+            } else if (nota >= 5) {
+                // Recuperação
+                areaResultado.textContent = "Recuperação!";
+                areaResultado.style.color = "orange";
+
+            } else {
+                // Reprovado
+                areaResultado.textContent = "Reprovado!";
+                areaResultado.style.color = "red";
+            }
+        }
+
+        // 4. Evento de clique no botão
+        botao.onclick = verificarSituacao;
+
+    </script>
+</body>
+</html>
