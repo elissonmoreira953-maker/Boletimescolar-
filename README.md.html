@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boletim Escolar</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #e2e8f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .caixa-boletim {
+            background-color: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 380px;
+        }
+
+        h1 {
+            margin-top: 0;
+            color: #1e293b;
+            font-size: 26px;
+        }
+
+        p {
+            color: #64748b;
+            margin-bottom: 25px;
+        }
+
+        input {
+            width: 80%;
+            padding: 12px;
+            font-size: 18px;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 20px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #3b82f6;
+        }
+
+        button {
+            width: 90%;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background-color: #3b82f6;
+            color: white;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background-color: #2563eb;
+        }
+
+        .area-resultado {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px dashed #cbd5e1;
+        }
+
+        #resultado {
+            font-size: 28px;
+            font-weight: bold;
+            color: #94a3b8;
+            transition: color 0.3s;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="caixa-boletim">
+        <h1>Análise de Boletim 📝</h1>
+        <p>Insira a nota final do aluno para verificar a situação.</p>
+
+        <!-- Caixa de texto para a nota -->
+        <input type="number" id="notaInput" placeholder="Ex: 8.5" step="0.1">
+
+        <!-- Botão de ação -->
+        <button id="btnAnalisar">Verificar Situação</button>
+
+        <!-- Onde o resultado aparece -->
+        <div class="area-resultado">
+            <div id="resultado">Aguardando nota...</div>
+        </div>
+    </div>
+
+    <!-- SCRIPT JAVASCRIPT ORGANIZADO -->
+    <script>
+        // 1. Captura os elementos do HTML
+        const inputNota = document.getElementById("notaInput");
+        const botaoAnalisar = document.getElementById("btnAnalisar");
+        const divResultado = document.getElementById("resultado");
+
+        // 2. Cria a função de análise
+        function analisarSituacao() {
+            // 3. Pega o valor do input e converte para número decimal
+            let nota = parseFloat(inputNota.value);
+
+            // Validação de segurança (evita campos vazios ou números absurdos)
+            if (isNaN(nota) || nota < 0 || nota > 10) {
+                divResultado.innerText = "Nota inválida! (Use 0 a 10)";
+                divResultado.style.color = "#ef4444";
+                return;
+            }
+
+            // 4. Estrutura de condições (IFs e ELSEs)
+            if (nota >= 7) {
+                divResultado.innerText = "Aprovado! 🎉";
+                divResultado.style.color = "#10b981"; // Cor verde
+            } else if (nota >= 5) {
+                divResultado.innerText = "Recuperação 😐";
+                divResultado.style.color = "#f59e0b"; // Cor amarela
+            } else {
+                divResultado.innerText = "Reprovado ❌";
+                divResultado.style.color = "#ef4444"; // Cor vermelha
+            }
+        }
+
+        // 5. Atribui a função ao evento de clique do botão
+        botaoAnalisar.onclick = analisarSituacao;
+    </script>
+
+</body>
+</html>
